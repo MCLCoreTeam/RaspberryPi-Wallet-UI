@@ -3,8 +3,9 @@ from flask import Flask
 from flask_bootstrap import Bootstrap
 
 def create_app(test_config=None):
-    root_dir = os.path.expanduser('~/pos-ui')
+    #root_dir = os.path.expanduser('~/pos-ui')
     app = Flask(__name__, instance_relative_config=True)
+    Bootstrap(app)
 
     if test_config is None:
         app.config.from_pyfile('config.py', silent=True)
@@ -16,8 +17,8 @@ def create_app(test_config=None):
     except OSError:
         pass
 
-    @app.route('/')
-    def index():
-        return 'Hello, World!'
+    from . import wallet
+    app.register_blueprint(wallet.bp)
+    app.add_url_rule('/', endpoint='index')
 
     return app
