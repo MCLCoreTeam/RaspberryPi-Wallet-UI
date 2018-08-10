@@ -2,10 +2,12 @@ import os
 from flask import Flask
 from flask_bootstrap import Bootstrap
 
+bs = Bootstrap()
+
 def create_app(test_config=None):
     #root_dir = os.path.expanduser('~/pos-ui')
     app = Flask(__name__, instance_relative_config=True)
-    Bootstrap(app)
+    bs.init_app(app)
 
     if test_config is None:
         app.config.from_pyfile('config.py', silent=True)
