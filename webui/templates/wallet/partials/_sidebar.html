@@ -1,0 +1,60 @@
+<nav class="navbar navbar-inverse sidebar" role="navigation">
+  <div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-sidebar-navbar-collapse-1">
+      <span class="sr-only">Toggle navigation</span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+    <a class="navbar-brand" href="/">Pi Stakers UI</a>
+  </div>
+  <div class="collapse navbar-collapse" id="bs-sidebar-navbar-collapse-1">
+    <ul class="nav navbar-nav">
+      <li><a href="/">Overview<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-sunglasses"></span></a></li>
+      <li><a href="/send">Send<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-upload"></span></a></li>
+      <li><a href="/receive">Receive<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-download"></span></a></li>
+      <li><a href="/transaction">Transactions<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-sort"></span></a></li>
+      <li><a href="#" data-toggle="modal" data-target="#lockModal">Lock Wallet<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-lock"></span></a></li>
+      <li><a href="#" data-toggle="modal" data-target="#stopModal">Stop Wallet<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-lock"></span></a></li>
+      <li><a href="/setup">Setup<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-cog"></span></a></li>
+    </ul>
+  </div>
+</nav>
+<div id="lockModal" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h3 class="modal-title">Confirm Wallet Lock</h3>
+      </div>
+      <div class="modal-body">
+        <p>
+          Are you sure?
+          <a href="/send_req/walletlock" class="btn btn-primary pull-right hidden-xs showopacity glyphicon glyphicon-lock"> Lock</a>
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="stopModal" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h3 class="modal-title">Confirm Stop Wallet</h3>
+      </div>
+      <div class="modal-body">
+        <p>
+          Are you sure?
+          <a href="/send_req/stop" class="btn btn-primary pull-right hidden-xs showopacity glyphicon glyphicon-lock"> Stop</a>
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

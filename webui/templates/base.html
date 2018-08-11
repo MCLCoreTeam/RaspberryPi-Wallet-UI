@@ -3,14 +3,17 @@
   {% block head %}
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pi PoS UI</title>
+    <title>Pi Stakers UI</title>
     {% block styles %}
     {{super()}}
       <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
+      <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+      <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
     {% endblock %}
   {% endblock %}
   {% block body %}
     <div class="container-fluid">
+      {% include 'wallet/partials/_sidebar.html' %}
       {% block content %}{% endblock %}
     </div>
   {% endblock %}

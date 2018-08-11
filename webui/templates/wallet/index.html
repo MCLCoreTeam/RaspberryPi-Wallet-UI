@@ -1,8 +1,42 @@
-{% extends 'layout.html' %}
+{% extends 'base.html' %}
 
 {% block content %}
-<h1>Hello This is a Test</h1>
-  <p>
-    Hey hey, its works!!
-  </p>
+<div class="main">
+  <div class="index-page col-xs-12">
+    <div class="wallet col-xs-12 col-lg-6">
+      <h3>Balance</h3>
+      <br />
+      <strong data-toggle="tooltip" title="Qtum availabe to spend.">Available:</strong> <span class="pull-right">4865</span> <br />
+      <strong data-toggle="tooltip" title="Unconfirmed Qtum">Pending:</strong> <span class="pull-right">200</span> <br />
+      <strong data-toggle="tooltip" title="Staking Rewards available after 500 Blocks">Stake Reward:</strong> <span class="pull-right">650</span> <br />
+      <strong data-toggle="tooltip" title="Coins Locked from Staking a Block">Staked:</strong><span class="pull-right">0.00</span> <br />
+      <div class="q-total"><hr /> <span data-toggle="tooltip" title="Combined total Coins, including pending and staked" class="pull-left">Total</span>5000 Coins</div>
+    </div>
+
+    <div class="wallet-right col-xs-12 col-lg-6">
+      <h3>Wallet Information</h3> <br />
+      <strong>Wallet Version:</strong> <span class="pull-right">{#{ wallet_version[46:54] }#}</span> <br />
+      <strong>UI Version:</strong> <span class="pull-right">{#{ ui_version }#}</span> <br />
+      {#% if stake_output.staking == false %#}
+        <strong>Staking:</strong> <span class="pull-right red-sm">False</span> <br />
+      {#% else %#}
+        <!-- <strong>Staking:</strong> <span class="pull-right green-sm">True</span> <br /> -->
+      {#% endif %#}
+      {#% if get_current_block.unlocked_until == null %#}
+        <!-- <strong>Wallet Status:</strong> <span class="pull-right">Not Encrypted</span> <br /> -->
+      {#% elif get_current_block.unlocked_until > 0 %#}
+        <strong>Wallet Status:</strong> <span class="pull-right">Unlocked</span> <br />
+      {#% else %#}
+        <!-- <strong>Wallet Status:</strong> <span class="pull-right">Locked</span> <br /> -->
+      {#% endif %#}
+      <strong>Wallet Weight:</strong> <span class="pull-right">424324345</span> <br />
+      <strong>Net Weight:</strong> <span class="pull-right">{#{'%0.2f'| format(stake_output.netstakeweight|float / 100000000000000)}#} M</span> <br />
+      <strong>Approx TTS:</strong> <span class="pull-right">{#{ stake_time }} Days</span> <br />
+      <strong>Connections:</strong> <span class="pull-right">{#{ get_current_block.connections }#} Nodes</span> <br />
+    </div>
+    <small id="current-address" class="col-xs-12">Deposit Address: QS4Gy8iJcCydQbkVN1ZGEGE59RMkYst9zR</small>
+  </div>
+  </div>
+  </div>
+</div>
 {% endblock %}
