@@ -1,3 +1,14 @@
 __pycache__/
 .pytest_cache/
 notes.txt
+.Python
+[Bb]in
+[Ii]nclude
+[Ll]ib
+[Ll]ib64
+[Ll]ocal
+[Ss]cripts
+pyvenv.cfg
+.venv
+pip-selfcheck.json
+instance/
