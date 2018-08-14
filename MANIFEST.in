@@ -1,3 +1,0 @@
-graft webui/static
-graft webui/templates
-global-exclude *.pyc

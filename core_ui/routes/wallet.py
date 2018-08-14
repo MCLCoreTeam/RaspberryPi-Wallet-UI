@@ -1,14 +1,14 @@
 from flask import (
     Blueprint, flash, redirect, render_template, request, url_for, send_from_directory
 )
-from core_ui.services import wallet
+from core_ui.services import rpcrequest
 
 wallet_bp = Blueprint('wallet', __name__)
 
 @wallet_bp.route('/')
 def index():
-    # info = wallet.getinfo()
-    return render_template('wallet/index.html', info=wallet.getwalletinfo())
+    rq = rpcrequest.get_info()
+    return render_template('wallet/index.html', info=rq)
 
 @wallet_bp.route('/send', defaults={'selected_address' : ''})
 @wallet_bp.route('/send/<selected_address>', methods=['GET', 'POST'])
