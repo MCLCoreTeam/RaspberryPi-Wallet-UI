@@ -2,12 +2,13 @@ import os
 from flask import Flask
 from flask_bootstrap import Bootstrap
 
-
 bootstrap = Bootstrap()
 
 def create_app(config=None):
+    from . import routes, services
 
     app = Flask(__name__)
+
     app.config.from_object('settings')
 
     if 'FLASK_CONF' in os.environ:
@@ -19,9 +20,8 @@ def create_app(config=None):
         elif config.endswith('.py'):
             app.config.from_pyfile(config)
 
-    from . import bootstrap, routes#, services
     routes.init_app(app)
-#    services.init_app(app)
+    services.init_app(app)
     bootstrap.init_app(app)
 
     return app

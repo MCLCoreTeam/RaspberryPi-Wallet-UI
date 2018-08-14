@@ -11,7 +11,7 @@ notes.txt
 pyvenv.cfg
 .venv
 pip-selfcheck.json
-instance/
 .DS_Store
 conf/
 try.py
+bit*
