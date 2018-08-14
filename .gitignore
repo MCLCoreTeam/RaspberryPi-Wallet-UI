@@ -13,3 +13,4 @@ pyvenv.cfg
 pip-selfcheck.json
 .DS_Store
 bit*
+settings.py

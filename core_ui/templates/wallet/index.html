@@ -6,33 +6,85 @@
     <div class="wallet col-xs-12 col-lg-6">
       <h3>Balance</h3>
       <br />
-      <strong data-toggle="tooltip" title="Qtum availabe to spend.">Available:</strong> <span class="pull-right">{{ '%0.4f' | format(info.balance) }}</span> <br />
-  
-
+      <strong data-toggle="tooltip" title="Qtum availabe to spend.">Available:</strong> <span class="pull-right">{{ '%0.4f' | format(wallet_info.balance) }}</span> <br />
+      <strong data-toggle="tooltip" title="Unconfirmed Qtum">Pending:</strong> <span class="pull-right">{{ '%0.4f' | format(wallet_info.unconfirmed_balance) }}</span> <br />
+      <strong data-toggle="tooltip" title="Qtum with less then 500 confirmations">Immature:</strong><span class="pull-right">{{ '%0.4f' | format(immature_bal) }}</span> <br />
+      <strong data-toggle="tooltip" title="Staking Rewards available after 500 Blocks">Stake Reward:</strong> <span class="pull-right">{{ '%0.4f' | format(wallet_info.immature_balance) }}</span> <br />
+      <strong data-toggle="tooltip" title="Coins Locked from Staking a Block">Staked:</strong><span class="pull-right">{{ '%0.4f' | format(wallet_info.stake) }}</span> <br />
+      <div class="q-total"><hr /> <span data-toggle="tooltip" title="Combined total Qtum, including pending and staked" class="pull-left">Total</span> {{ '%0.4f' | format(wallet_info.balance + wallet_info.unconfirmed_balance + wallet_info.immature_balance + wallet_info.stake) }} COINS</div>
+    </div>
     <div class="wallet-right col-xs-12 col-lg-6">
       <h3>Wallet Information</h3> <br />
-      <strong>Wallet Version:</strong> <span class="pull-right">{#{ wallet_version[46:54] }#}</span> <br />
-      <strong>UI Version:</strong> <span class="pull-right">{#{ ui_version }#}</span> <br />
-      {#% if stake_output.staking == false %#}
+      <strong>Wallet Version:</strong> <span class="pull-right">v0.{{ wallet_info.version }}</span> <br />
+      <strong>UI Version:</strong> <span class="pull-right">{{ ui_version }}</span> <br />
+      {% if wallet_info.staking == false %}
         <strong>Staking:</strong> <span class="pull-right red-sm">False</span> <br />
-      {#% else %#}
-        <!-- <strong>Staking:</strong> <span class="pull-right green-sm">True</span> <br /> -->
-      {#% endif %#}
-      {#% if get_current_block.unlocked_until == null %#}
-        <!-- <strong>Wallet Status:</strong> <span class="pull-right">Not Encrypted</span> <br /> -->
-      {#% elif get_current_block.unlocked_until > 0 %#}
+      {% else %}
+        <strong>Staking:</strong> <span class="pull-right green-sm">True</span> <br />
+      {% endif %}
+      {% if wallet_info.unlocked_until == null %}
+        <strong>Wallet Status:</strong> <span class="pull-right">Not Encrypted</span> <br />
+      {% elif wallet_info.unlocked_until > 0 %}
         <strong>Wallet Status:</strong> <span class="pull-right">Unlocked</span> <br />
-      {#% else %#}
-        <!-- <strong>Wallet Status:</strong> <span class="pull-right">Locked</span> <br /> -->
-      {#% endif %#}
-      <strong>Wallet Weight:</strong> <span class="pull-right">424324345</span> <br />
-      <strong>Net Weight:</strong> <span class="pull-right">{#{'%0.2f'| format(stake_output.netstakeweight|float / 100000000000000)}#} M</span> <br />
-      <strong>Approx TTS:</strong> <span class="pull-right">{#{ stake_time }} Days</span> <br />
-      <strong>Connections:</strong> <span class="pull-right">{#{ get_current_block.connections }#} Nodes</span> <br />
+      {% else %}
+        <strong>Wallet Status:</strong> <span class="pull-right">Locked</span> <br />
+      {% endif %}
+      <strong>Wallet Weight:</strong> <span class="pull-right">{{'%0.8f'| format(wallet_info.weight|float / 100000000)}}</span> <br />
+      <strong>Net Weight:</strong> <span class="pull-right">{{'%0.2f'| format(wallet_info.netstakeweight|float / 100000000000000)}} M</span> <br />
+      <strong>Approx TTS:</strong> <span class="pull-right">{{ wallet_info.expected_time }} Days</span> <br />
+      <strong>Connections:</strong> <span class="pull-right">{{ wallet_info.connections }} Nodes</span> <br />
     </div>
-    <small id="current-address" class="col-xs-12">Deposit Address: QS4Gy8iJcCydQbkVN1ZGEGE59RMkYst9zR</small>
+    <small id="current-address" class="col-xs-12">Deposit Address: {{ address }}</small>
   </div>
-  </div>
+  <div class="transactions-index col-xs-12">
+       <div class="wallet col-xs-12 col-lg-6">
+   <h3>Network Information</h3>
+     {%  if wallet_info.connections > 0 %}
+       <strong>Network:</strong><span class="green-sm"> Online</span><br />
+         {% elif get_current_block.moneysupply == 0 %}
+       <strong>Network:</strong><span class="blue-sm"> Syncing</span><br />
+         {% else %}
+       <strong>Network:</strong><span class="red-sm"> Offline</span><br />
+     {% endif %}
+     <strong>Last Block Time:</strong> {{ time.strftime('%B %d %Y, %I:%M%p %Z', time.localtime(wallet_info.block_time)) }} <br />
+     <strong>Current Block:</strong> {{ wallet_info.blocks }} <br />
+     <strong>Total Sent:</strong> {{ '%0.2f'| format(wallet_info.totalbytessent|float / 1024 / 1024) }} MB  <br />
+     <strong>Total Received:</strong> {{ '%0.2f'| format(wallet_info.totalbytesrecv|float / 1024 / 1024) }} MB <br />
+     <strong>TX in current block:</strong> {{ wallet_info.pooledtx }} <br />
+     <strong id="block-hash"> Bestblock Hash:<a href="https://explorer.qtum.org/block/{{ wallet_info.bestblockhash }}" target="_blank"> {{ wallet_info.bestblockhash }}</a></strong>
+       </div>
+       <div class="transactions-last col-xs-12 col-lg-6">
+         <h3>Recent Transactions</h3>
+         <table class="table table-striped">
+           <thead>
+             <tr>
+               <th class="text-center col-sm-3">Date</th>
+               <th class="text-center col-sm-1">Type</th>
+               <th class="text-center col-sm-2">Amount</th>
+               <th class="text-center col-sm-2">Confirmations</th>
+             </tr>
+           </thead>
+           <tbody>
+             {% for tx in recived_tx[-3:][::-1] %}
+             <tr>
+               <td align="left">{{ time.strftime('%B %d %Y %I:%M%p', time.localtime(tx.time)) }}</td>
+               <td align="center">
+                 {% if tx.category == "receive" %}
+                   <span class="glyphicon glyphicon-download green"></span>
+                 {% elif tx.category == "send" %}
+                   <span class="glyphicon glyphicon-upload red"></span>
+                 {% else %}
+                   <span class="glyphicon glyphicon-refresh blue"></span>
+                 {% endif %}
+               </td>
+               <td id="table_padding" align="center">{{ tx.amount }}</td>
+               <td id="table_padding" align="center">{{ tx.confirmations }}</td>
+             </tr>
+             {% endfor %}
+           </tbody>
+         </table>
+         </div>
+       </div>
   </div>
 </div>
 {% endblock %}

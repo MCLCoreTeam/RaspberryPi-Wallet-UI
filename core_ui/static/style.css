@@ -1,6 +1,6 @@
 body, html {
   height: 100%;
-  background-color: #505061;
+  background-color: #606069;
   color: #a8a8b1;
 }
 
@@ -15,9 +15,9 @@ body, html {
     margin: 0 auto;
 }
 
-/* .wallet h3, .wallet-right h3 {
+.wallet h3, .wallet-right h3 {
   color: #059be9;
-} */
+}
 
 #current-address {
   font-size: 17px;
@@ -57,7 +57,7 @@ nav.sidebar .navbar-brand{
 
 
 nav.sidebar.navbar {
-  background-color: #40404cad;
+  background-color: #404048cc;
   font-size: 18px;
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 1.0), 0 2px 4px 0 rgba(0, 0, 0, 0.19);
   border-radius: 10px;
@@ -68,6 +68,86 @@ nav.sidebar, .main{
     -moz-transition: margin 200ms ease-out;
     -o-transition: margin 200ms ease-out;
     transition: margin 200ms ease-out;
+}
+
+.transactions {
+  background-color: #40404cad;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 1.0), 0 2px 4px 0 rgba(0, 0, 0, 0.19);
+  border-radius: 10px;
+  margin-bottom: 40px;
+  padding-bottom: 10px;
+}
+
+.transactions-index, .transactions-received, .transactions-send {
+  margin-top: 22px;
+  background-color: #40404cad;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 1.0), 0 2px 4px 0 rgba(0, 0, 0, 0.19);
+  border-radius: 10px;
+  margin-bottom: 40px;
+  padding-bottom: 10px;
+}
+
+.transactions h3, .transactions-received h3, .transactions-index h3, .transactions-send h3, .receive-page h3, .setup-page h3 {
+  color: #a8a8b1;
+}
+
+.table-striped > tbody > tr:nth-child(2n+1) > td, .table-striped > tbody > tr:nth-child(2n+1) > th {
+   background-color: #40404cad;
+   border-bottom:0px !important;
+
+}
+
+.table th, .table td, td.text {
+  max-width: 177px;
+    border: 1px !important;
+    overflow-y: auto;
+    table-layout: fixed;
+    word-wrap: break-word;
+}
+
+
+.table td.text span {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: inline-block;
+    max-width: 100%;
+}
+
+a.text span {
+   white-space: nowrap;
+   overflow: hidden;
+   text-overflow: ellipsis;
+   display: inline-block;
+   max-width: 100%;
+}
+
+.red {
+  padding-top: 8px;
+  color: #e10a04;
+  font-size: 20px;
+}
+
+.red-sm {
+  color: #e10a04;
+  font-size: 16px;
+}
+
+.green {
+  padding-top: 8px;
+  color: #00B502;
+  font-size: 20px
+}
+
+.green-sm {
+  color: #00B502;
+  font-size: 16px
+}
+
+.blue {
+  padding-top: 8px;
+  color: #3379b7;
+  font-size: 20px
 }
 
 /* Add gap to nav and right windows.*/

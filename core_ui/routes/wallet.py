@@ -1,14 +1,19 @@
+import time
 from flask import (
-    Blueprint, flash, redirect, render_template, request, url_for, send_from_directory
+    Blueprint, flash, redirect, current_app, render_template, request, url_for, send_from_directory
 )
+
 from core_ui.services import rpcrequest
 
 wallet_bp = Blueprint('wallet', __name__)
 
 @wallet_bp.route('/')
 def index():
-    rq = rpcrequest.get_info()
-    return render_template('wallet/index.html', info=rq)
+    rq = rpcrequest.wallet_info()
+    ima = rpcrequest.immature_coins()
+    addr = rpcrequest.get_address()
+    tx_in = rpcrequest.get_received_tx()
+    return render_template('wallet/index.html', wallet_info=rq, time=time, immature_bal=ima, ui_version=current_app.config['UI_VERSION'], address=addr, recived_tx=tx_in)
 
 @wallet_bp.route('/send', defaults={'selected_address' : ''})
 @wallet_bp.route('/send/<selected_address>', methods=['GET', 'POST'])
