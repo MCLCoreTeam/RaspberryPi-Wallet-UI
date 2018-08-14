@@ -10,4 +10,4 @@ CSRF_SESSION_KEY = os.urandom(24)
 
 SECRET_KEY = os.urandom(24)
 
-SERVER_RPC_URL = "http://%s:%s@127.0.0.1:8332"%("Rpcuser", "Rpcpassword")
+WALLET_RPC_URL = "http://%s:%s@127.0.0.1:8332"%("Rpcuser", "Rpcpassword")

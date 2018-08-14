@@ -28,6 +28,9 @@ class Rpcrequest(object):
             self.init_app(app)
 
     def init_app(self, app):
+        """Set up this instance for use with *app*, if no app was passed to
+        the constructor.
+        """
 
         self.app = app
         app.wallet_instance = self
@@ -35,9 +38,13 @@ class Rpcrequest(object):
             app.extensions = {}
         app.extensions['wallet'] = self
 
-
         app.config.setdefault('SERVER_RPC_URL', '"http://%s:%s@127.0.0.1:8332"%("Rpcuser", "Rpcpassword")')
         self.connect = Proxy(app.config['SERVER_RPC_URL'])
 
-
         app.context_processor(_wallet_context_processor)
+        app.teardown_appcontext(self.teardown)
+
+    def teardown(self, exception):
+        ctx = _request_ctx_stack.top
+        if hasattr(ctx, 'extensions'):
+            ctx.extensions.close()
