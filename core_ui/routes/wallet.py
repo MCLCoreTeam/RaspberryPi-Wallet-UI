@@ -16,7 +16,7 @@ def index():
 @wallet_bp.route('/send/<selected_address>', methods=['GET', 'POST'])
 def send(selected_address):
 
-    return render_template('wallet/......')
+    return render_template('wallet/send.html', wallet_info=rpcrequest.wallet_info())
 
 @wallet_bp.route('/send_coin', methods=['POST'])
 def send_coin():

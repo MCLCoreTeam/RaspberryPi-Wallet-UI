@@ -4,7 +4,6 @@ from . import wallet
 def wallet_info():
     result = {'immature_coins' : immature_coins(), 'address' : wallet.getaccountaddress(''),
             'tx_list' : wallet.listtransactions('*', 100)}
-
     list = [wallet.getwalletinfo(), wallet.getnetworkinfo(), wallet.getstakinginfo(),
             wallet.getblockchaininfo(), wallet.getnettotals()]
 
@@ -17,7 +16,6 @@ def wallet_info():
     result['block_time'] = wallet.getblock(wallet.getbestblockhash())['time'] # Time since last Block
 
     return result
-
 
 # Gets the coins/tokens that are not mature for staking. (less than 500 confirmations)
 def immature_coins():

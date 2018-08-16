@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="main">
+    <div class="receive-page col-xs-12">
+      <h3>Create New Receive Address</h3>
+      <div class="receive-dropdown col-lg-3">
+      <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Account Addresses <span class="caret"></span></button>
+      <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+        {% for key, value in account_add.items() %}
+          {% if key == "" %}
+            <li class="divider"></li>
+            <li class="dropdown-header">Default Account</li>
+          {% else %}
+            <li class="divider"></li>
+            <li class="dropdown-header">{{ key }} Account</li>
+          {% endif %}
+          {% for x in value[0:99] %}
+            <li role="presentation"><a role="menuitem" href="/receive/{{ x }}">{{ x }}</a></li>
+          {% endfor %}
+        {% endfor %}
+      </ul>
+    </div>
+      <form class="receive-form col-xs-12 col-md-6" method="post" action="{{ url_for('new_address') }}">
+      {{ form.csrf_token }}
+        <div id="receive-to_label" data-toggle="tooltip" title="Enter amount to request in QRcode. Can be left blank." class="input-group">
+          <span class="input-group-addon"><i class="glyphicon glyphicon-folder-open"></i></span>
+          {{ form.account_address(type="text", value=address, class_="form-control", placeholder="Enter Address or leave blank for new")}}
+        </div>
+        <div id="receive-to_label" data-toggle="tooltip" title="Enter amount to request in QRcode. Can be left blank." class="input-group">
+          <span class="input-group-addon"><i class="glyphicon glyphicon-floppy-save"></i></span>
+          {{ form.account_name(type="text", class_="form-control", placeholder="Account Name for New Addresses Only")}}
+        </div>
+        <div id="receive-amount" data-toggle="tooltip" title="Use existing account name or create a new account if left blank the default account will be used."  class="input-group">
+          <span class="input-group-addon"><i class="glyphicon glyphicon-qrcode"></i></span>
+          {{ form.requested_amount(type="number", step="any", class_="form-control", placeholder="Request Amount for QRCode (optional)")}}
+        </div>
+        <div id="receive-description" data-toggle="tooltip" title="Enter message to include in transaction." class="input-group">
+          <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+          {{ form.message(type="text", class_="form-control", placeholder="Message for QRCode (optional)")}}
+        </div>
+        <div id="receive-form">
+          <button type="submit" class="btn btn-primary btn-sm pull-right">Request</button>
+          {% with messages = get_flashed_messages(category_filter=["error"]) %}
+            {% if messages %}
+              {% for message in messages %}
+              <div id="send-alert" class="alert alert-danger">
+                {{ message }}
+              </div>
+              {% endfor %}
+            {% endif %}
+          {% endwith %}
+        </div>
+      </form>
+      {% with messages = get_flashed_messages(category_filter=["msg"]) %}
+        {% if messages %}
+          {% for message in messages %}
+          <div class="qrcode-img col-xs-12 col-md-3">
+            <img  src="{{ qrcode(qrcode_reposnse, box_size=4, border=1, error_correction='L') }}" width="160" height="160" class="img-thumbnail" alt="Cinque Terre">
+          </div>
+          <small id="new-receive-address" class="col-lg-12"> Address is: {{ message }}</small>
+          {% endfor %}
+          {% else %}
+          <div class="qrcode-img col-xs-12 col-md-3">
+            <img  src="{{ qrcode('coin:%s?amount=&label=&message=' % get_address, box_size=4, border=1, error_correction='L') }}" width="160" height="160" class="img-thumbnail" alt="Cinque Terre">
+          </div>
+            <small id="new-address" class="col-lg-12">Current Address: {{ get_address }}</small>
+        {% endif %}
+      {% endwith %}
+    </div>
+  <div class="transactions-received table-responsive col-xs-12">
+    <h3>Received Transactions</h3>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th class="text-center col-sm-3">Date</th>
+          <th class="text-center col-sm-1">Type</th>
+          <th class="text-center col-sm-3">Transaction ID</th>
+          <th class="text-center col-sm-2">Amount</th>
+          <th class="text-center col-sm-2">Confirmations</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for tx in get_received[-15:][::-1] %}
+          {% if "receive" in tx.category %}
+          <tr>
+            <td align="left">{{ date.strftime('%B %d %Y %I:%M%p %Z', date.localtime(tx.time)) }}</td>
+            <td align="center">
+              <span class="glyphicon glyphicon-download green"></span>
+            </td>
+            <td id="table_padding" align="center" class="text"><span><a href="https://explorer.org/tx/{{tx.txid}}" target="_blank">{{ tx.txid}}</a></span></td>
+            <td id="table_padding" align="center">{{ tx.amount }}</td>
+            <td id="table_padding" align="center">{{ tx.confirmations }}</td>
+          </tr>
+          {% endif %}
+        {% endfor %}
+      </tbody>
+    </table>
+    </div>
+
+  </div>
+{% endblock %}

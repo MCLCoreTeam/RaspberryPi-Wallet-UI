@@ -4,7 +4,7 @@
 <div class="main">
   <div class="index-page col-xs-12">
     <div class="wallet col-xs-12 col-lg-6">
-      <h3>Balance</h3>
+      <h3>Wallet Balance</h3>
       <br />
       <strong data-toggle="tooltip" title="Qtum availabe to spend.">Available:</strong> <span class="pull-right">{{ '%0.4f' | format(wallet_info.balance) }}</span> <br />
       <strong data-toggle="tooltip" title="Unconfirmed Qtum">Pending:</strong> <span class="pull-right">{{ '%0.4f' | format(wallet_info.unconfirmed_balance) }}</span> <br />
@@ -14,7 +14,7 @@
       <div class="q-total"><hr /> <span data-toggle="tooltip" title="Combined total Qtum, including pending and staked" class="pull-left">Total</span> {{ '%0.4f' | format(wallet_info.balance + wallet_info.unconfirmed_balance + wallet_info.immature_balance + wallet_info.stake) }} COINS</div>
     </div>
     <div class="wallet-right col-xs-12 col-lg-6">
-      <h3>Wallet Information</h3> <br />
+      <h3>Wallet Status</h3> <br />
       <strong>Wallet Version:</strong> <span class="pull-right">{{ wallet_info.subversion[9:15] }}</span> <br />
       <strong>UI Version:</strong> <span class="pull-right">{{ ui_version }}</span> <br />
       {% if wallet_info.staking == false %}
@@ -38,7 +38,7 @@
   </div>
   <div class="transactions-index col-xs-12">
     <div class="wallet col-xs-12 col-lg-6">
-      <h3>Network Information</h3>
+      <h3>Network Status</h3>
       {% if wallet_info.blocks != wallet_info.headers %}
         <strong>Network:</strong><span class="blue-sm"> Syncing</span><br />
       {% elif wallet_info.connections > 0 %}
@@ -78,7 +78,7 @@
                    <span class="glyphicon glyphicon-refresh blue"></span>
                  {% endif %}
                </td>
-               <td id="table_padding" align="center">{{ tx.amount }}</td>
+               <td id="table_padding" align="center">{{ '%0.4f'| format(tx.amount) }}</td>
                <td id="table_padding" align="center">{{ tx.confirmations }}</td>
              </tr>
              {% endfor %}

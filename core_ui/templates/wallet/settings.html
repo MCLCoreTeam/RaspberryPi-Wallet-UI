@@ -1,0 +1,127 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="main">
+  <div class="setup-page col-xs-12">
+    <h3>Wallet Options</h3>
+  <form class="stkaing-form col-xs-12 col-lg-7" method="post" action="{{ url_for('staking_service') }}">
+    {{ form.csrf_token }}
+  <div class="input-group">
+    <span class="input-group-addon">Start Staking</span>
+    {{ form.passphrase(type="password", class_="form-control", placeholder="Enter Passphrase to Enable Staking")}}
+    <div class="input-group-btn">
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+  </div>
+    <br />
+  {% if form.errors %}
+    {% for field, errors in form.errors.items() %}
+      <div id="send-alert" class="alert alert-danger">
+        {{ ', '.join(errors) }}
+      </div>
+    {% endfor %}
+  {% endif %}
+
+  {% with messages = get_flashed_messages(category_filter=["msg"]) %}
+    {% if messages %}
+      {% for message in messages %}
+      <div id="send-alert" class="alert alert-success">
+        {{ message }}
+      </div>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+
+  {% with messages = get_flashed_messages(category_filter=["error_staking"]) %}
+    {% if messages %}
+      {% for message in messages %}
+      <div id="send-alert" class="alert alert-danger">
+        {{ message }}
+      </div>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+  <br />
+  </form>
+
+  <form class="stkaing-form col-xs-12 col-lg-7" method="post" enctype="multipart/form-data" action="{{ url_for('upload') }}">
+    {{ form.csrf_token }}
+  <div class="input-group">
+        {{ wallet_upload.wallet(class_="form-control")}}
+    <div class="input-group-btn">
+      <button type="submit" class="btn btn-primary">Upload Backup</button>
+    </div>
+  </div>
+  <small>NOTE: The file will be renamed wallet.dat</small>
+    <br />
+  {% if form.errors %}
+    {% for field, errors in form.errors.items() %}
+      <div id="send-alert" class="alert alert-danger">
+        {{ ', '.join(errors) }}
+      </div>
+    {% endfor %}
+  {% endif %}
+  </form>
+
+  <form class="addnode-form col-xs-12 col-lg-7" method="post" action="{{ url_for('add_node') }}">
+    {{ form_addnode.csrf_token }}
+  <div class="input-group">
+    <span class="input-group-addon">Add Node.....</span>
+    {{ form_addnode.nodeaddress(type="text", class_="form-control", placeholder="Enter Node IP, Include Port if not :3888")}}
+    <div class="input-group-btn">
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+  </div>
+  <small>NOTE: It can take a few minutes to update connected nodes</small>
+  <br />
+  {% if form_addnode.errors %}
+    {% for field, errors in form_addnode.errors.items() %}
+      <div id="send-alert" class="alert alert-danger">
+        {{ ', '.join(errors) }}
+      </div>
+    {% endfor %}
+  {% endif %}
+
+  {% with messages = get_flashed_messages(category_filter=["msg_node"]) %}
+    {% if messages %}
+      {% for message in messages %}
+      <div id="send-alert" class="alert alert-success">
+        {{ message }}
+      </div>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+
+  {% with messages = get_flashed_messages(category_filter=["error_node"]) %}
+    {% if messages %}
+      {% for message in messages %}
+      <div id="send-alert" class="alert alert-danger">
+        {{ message }}
+      </div>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+  </form>
+  <div class="disable-staking col-xs-12 col-lg-5">
+    <a href="/start_wallet" class="btn btn-primary">Restart Wallet</a>
+    <a href="/download" class="btn btn-primary">Download Backup</a>
+  </div>
+  </div>
+  <div class="transactions-index col-xs-12">
+    <h3>Feedback</h3>
+    <div class="support-us col-xs-12 col-md-6">
+      <p>
+        The Pi Wallet UI is an ongoing project, and your feedback and support are appreciated.
+        You can get in contact below or make a donation using the QRCode or donation address. <br />
+        <br />
+        Donations: <a href="/send/QceE7a47byDhFs9wy2c2ZdXz4yfT4RZLJQ">QceE7a47byDhFs9wy2c2ZdXz4yfT4RZLJQ</a> <br />
+        Contact: devtrev@protonmail.com <br />
+        View source code on <a href="https://github.com/OneDevGuy/RaspberryPi-Wallet-UI">Github</a>
+      </p>
+    </div>
+    <div class="qrcode-donate-img col-xs-12 col-md-6">
+        <img  src="{{ qrcode(donate_piui, box_size=4, border=1, error_correction='L') }}" width="160" height="160" class="img-thumbnail" alt="Cinque Terre">
+    </div>
+  </div>
+</div>
+{% endblock %}

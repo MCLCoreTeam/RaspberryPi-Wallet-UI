@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block content %}
+  <div class="main">
+    <div class="transactions table-responsive col-xs-12">
+        <h3>Transaction History</h3>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th class="text-center col-md-3">Date</th>
+              <th class="text-center col-md-1">Type</th>
+              <th class="text-center col-md-3">Transaction ID</th>
+              <th class="text-center col-md-2">Amount</th>
+              <th class="text-center col-md-1">Fee</th>
+              <th class="text-center col-md-2">Confirmations</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for tx in all_tx[::-1] %}
+            <tr>
+              <td align="left">{{ date.strftime('%B %d %Y %I:%M%p %Z', date.localtime(tx.time)) }}</td>
+              <td align="center">
+                {% if tx.category == "receive" %}
+                    <span class="glyphicon glyphicon-download green"></span>
+                  {% elif tx.category == "send" %}
+                    <span class="glyphicon glyphicon-upload red"></span>
+                  {% else %}
+                    <span class="glyphicon glyphicon-refresh blue"></span>
+                  {% endif %}
+              </td>
+              <td id="table_padding" align="center" class="text"><span><a href="https://explorer.org/tx/{{tx.txid}}" target="_blank">{{ tx.txid}}</a></span></td>
+              <td id="table_padding" align="center">{{ tx.amount }}</td>
+              {% if tx.fee == nil %}
+                <td id="table_padding" align="center">0.0000</td>
+              {% else %}
+                <td id="table_padding" align="center">{{ tx.fee }}</td>
+              {% endif %}
+              <td id="table_padding" align="center">{{ tx.confirmations }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+    </div>
+  </div>
+{% endblock %}
