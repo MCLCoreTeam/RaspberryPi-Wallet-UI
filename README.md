@@ -1,5 +1,6 @@
-# Raspberry Pi Proof of Stake User Interface
-Pi-PoS-UI is a browser UI for PoS cryptocurrency wallets.  
+# Raspberry Pi RPC Wallet User Interface
+A browser UI for cryptocurrency wallets that use the JSON-RPC protocol.
+This allows you to run a headless Pi and still have a Ui for your wallet.
 
 ## Supported Cryptocurrencies.  
 * TBA
