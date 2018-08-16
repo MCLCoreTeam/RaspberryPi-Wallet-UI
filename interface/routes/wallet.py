@@ -3,7 +3,7 @@ from flask import (
     Blueprint, flash, redirect, current_app, render_template, request, url_for, send_from_directory
 )
 
-from core_ui.services import rpcrequest
+from interface.services import rpcrequest
 
 wallet_bp = Blueprint('wallet', __name__)
 
