@@ -1,8 +1,7 @@
 from . import wallet
 
-
+# Gets all the info from the wallet
 def wallet_info():
-    # Gets all the info from the wallet
     result = {'immature_coins' : immature_coins(), 'address' : wallet.getaccountaddress(''),
             'tx_list' : wallet.listtransactions('*', 100)}
 
@@ -20,13 +19,9 @@ def wallet_info():
     return result
 
 
-
+# Gets the coins/tokens that are not mature for staking. (less than 500 confirmations)
 def immature_coins():
-    # Gets the coins/tokens that are not mature for staking. (less than 500 confirmations)
-    total_coins = 0
-    unspent_coins = wallet.listunspent()
-    for unspent in unspent_coins:
-        if unspent['confirmations'] < 500:
-            total_coins += unspent['amount']
-        return total_coins
-    return total_coins
+    get_list = wallet.listunspent(0)
+    confirmations = filter(lambda x : x['confirmations'] < 500, get_list)
+    immature_coins = sum(map(lambda x : float(x['amount']), confirmations))
+    return immature_coins
