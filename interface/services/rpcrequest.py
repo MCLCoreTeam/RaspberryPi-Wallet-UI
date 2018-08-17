@@ -31,3 +31,23 @@ def list_tx():
     txid = filter(lambda x : x['txid'] != txid, list_tx)
     output = list(txid)
     return output
+
+def encrypt_wallet():
+    encrypt = rpc_call.encryptwallet('password')
+    return
+
+def enable_staking(passwd, duration, stake): # Wallet needs to be encrypted (use encryptwallet)
+    unlock = rpc_call.walletpassphrase("%s" %d %s) % (passwd, duration, stake))
+    return
+
+def lock_wallet():
+    lock = rpc_call.walletlock()
+    return
+
+def add_node():
+    node = rpc_call.addnode('ipaddress', 'add')
+    return
+
+def qrcode(address, amount, name, msg):
+    response = 'coin:%s?amount=%s&label=%s&message=%s' % (address, amount, name, msg)
+    return response

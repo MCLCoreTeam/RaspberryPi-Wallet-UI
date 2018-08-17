@@ -65,21 +65,6 @@ def send_req(selected_cmd):
 
     return render_template('wallet/......')
 
-@wallet_bp.route('/offline')
-def offline():
-
-    return render_template('wallet/......')
-
-@wallet_bp.route('/start_wallet')
-def start_wallet():
-
-    return render_template('wallet/......')
-
-@wallet_bp.route('/upload', methods=['POST'])
-def upload():
-
-    return redirect(url_for('index'))
-
 @wallet_bp.route('/download', methods=['GET'])
 def download():
     return send_from_directory()

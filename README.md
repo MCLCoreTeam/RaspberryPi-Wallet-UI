@@ -4,18 +4,17 @@ This allows you to run a headless Pi and still have a Ui for your wallet.
 
 ## Supported Cryptocurrency Wallets  
 * NavCoin
-* NEO
 * Reddcoin
 * PIVX
 * Qtum
-* Decred
+* Decred ##
 * Neblio
 * Okcash
 * Pinkcoin
 * Peercoin
 * WhiteCoin
 * Denarius
-
+BitShares
 
 ### Install and Setup Guide
 Need to write guide.
