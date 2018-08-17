@@ -4,11 +4,7 @@ body, html {
   color: #a8a8b1;
 }
 
-.main {
-  margin-top: 40px;
-  padding-left: 0px;
-  padding-right: 0px;
-}
+
 
 .col-centered{
     float: none;
@@ -98,7 +94,7 @@ nav.sidebar, .main{
 }
 
 .table th, .table td, td.text {
-  max-width: 177px;
+  max-width: 280px;
     border: 1px !important;
     overflow-y: auto;
     table-layout: fixed;
@@ -120,6 +116,11 @@ a.text span {
    text-overflow: ellipsis;
    display: inline-block;
    max-width: 100%;
+}
+
+#date_table {
+  visibility: hidden;
+  display: none;
 }
 
 .red {
@@ -150,10 +151,23 @@ a.text span {
   font-size: 20px
 }
 
+#table_padding {
+  padding-top: 12px;
+  padding-left: 12px;
+  font-size: 14px
+}
+
+
 /* Add gap to nav and right windows.*/
 .main{
   padding: 10px 10px 0 10px;
+  margin-top: 40px;
+  margin-left: 0px;
+  padding-left: 0px;
+  padding-right: 0px;
 }
+
+
 
 /* .....NavBar: Icon only with coloring/layout.....*/
 
@@ -254,7 +268,7 @@ a.text span {
 
   /*Allow main to be next to Nav*/
   .main{
-    margin-left: 210px;
+    margin-left: 220px;
   }
 
   /*Show all nav*/
@@ -287,4 +301,63 @@ section{
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 1.0), 0 2px 4px 0 rgba(0, 0, 0, 0.19);
   border-radius: 10px;
   /*padding-bottom: 10px;*/
+}
+
+
+.table th, .table td, td.text {
+  max-width: 280px;
+    border: 1px !important;
+    overflow-y: auto;
+    table-layout: fixed;
+    word-wrap: break-word;
+}
+
+@media only screen and (max-width: 667px) {
+    #current-address, #block-hash, #fee, #confirmations,
+    .transactions-last, .transactions-received,
+    .transactions-send, #fee_table, #conf_table {
+      visibility: hidden;
+      display: none;
+    }
+    #new-address, #new-receive-address {
+      font-size: 12px;
+      text-align: center;
+      padding-bottom: 20px;
+      padding-top: 5px;
+      color: #c7c7c7;
+    }
+
+    .main {
+      margin-top: 10px;
+      padding-left: 0px;
+      padding-right: 0px;
+    }
+
+    .table th, .table td, td.text {
+      max-width: 60px;
+        border: 1px !important;
+        overflow-y: auto;
+        table-layout: fixed;
+        word-wrap: break-word;
+    }
+
+    #table_padding, #date_table{
+      padding: 8px;
+    }
+
+    .offline-page {
+      background-color: #312e32;
+      font-size: 16px;
+      box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 1.0), 0 2px 4px 0 rgba(0, 0, 0, 0.19);
+      border-radius: 10px;
+      padding-left: 10px;
+      padding-right: 10px;
+      padding-top: 10px;
+    }
+    .main-offline {
+      margin: 20px;
+      text-align: center;
+      padding-left: 0px;
+      padding-right: 0px;
+    }
 }

@@ -1,6 +1,6 @@
 import time
 from flask import (
-    Blueprint, flash, redirect, current_app, render_template, request, url_for, send_from_directory
+    Blueprint, flash, redirect, current_app, render_template, request, send_from_directory
 )
 
 from interface.services import rpcrequest
@@ -34,10 +34,10 @@ def new_address():
 
     return render_template('wallet/......')
 
-@wallet_bp.route('/transaction')
-def transaction():
+@wallet_bp.route('/history')
+def history():
 
-    return render_template('wallet/......')
+    return render_template('wallet/tx_history.html', all_tx=rpcrequest.list_tx(), time=time)
 
 @wallet_bp.route('/setup', methods=['GET', 'POST'])
 def setup():
