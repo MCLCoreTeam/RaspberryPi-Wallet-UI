@@ -66,7 +66,7 @@
              </tr>
            </thead>
            <tbody>
-             {% for tx in wallet_info.tx_list[-3:][::-1] %}
+             {% for tx in wallet_info.tx_list %}
              <tr>
                <td align="left">{{ time.strftime('%B %d %Y %I:%M%p', time.localtime(tx.time)) }}</td>
                <td align="center">
@@ -79,7 +79,11 @@
                  {% endif %}
                </td>
                <td id="table_padding" align="center">{{ '%0.4f'| format(tx.amount) }}</td>
+               {% if tx.blockhash == nill %}
+               <td id="table_padding" align="center">Orphan Block</td>
+               {% else %}
                <td id="table_padding" align="center">{{ tx.confirmations }}</td>
+               {% endif %}
              </tr>
              {% endfor %}
            </tbody>
