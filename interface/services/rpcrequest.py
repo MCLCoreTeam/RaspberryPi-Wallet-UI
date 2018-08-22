@@ -34,20 +34,20 @@ def list_tx():
 
 def encrypt_wallet():
     encrypt = rpc_call.encryptwallet('password')
-    return
+    pass
 
 def enable_staking(passwd, duration, stake): # Wallet needs to be encrypted (use encryptwallet)
-    unlock = rpc_call.walletpassphrase("%s" %d %s) % (passwd, duration, stake))
-    return
+    unlock = rpc_call.walletpassphrase("%s" %d %s) % (passwd, duration, stake)
+    pass
 
 def lock_wallet():
     lock = rpc_call.walletlock()
-    return
+    pass
 
 def add_node():
     node = rpc_call.addnode('ipaddress', 'add')
-    return
+    pass
 
 def qrcode(address, amount, name, msg):
     response = 'coin:%s?amount=%s&label=%s&message=%s' % (address, amount, name, msg)
-    return response
+    pass
