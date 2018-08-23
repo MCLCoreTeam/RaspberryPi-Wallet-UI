@@ -1,7 +1,7 @@
 from . import wallet as rpc_call # This is the flask_wallet_rpc variable
 
-# wallet = current_app.config['WALLET_NAME']
-# Gets all the info from the wallet
+
+# Gets all the info from the wallet for the index page.
 def wallet_info():
     result = {'immature_coins' : immature_coins(), 'address' : rpc_call.getaccountaddress(''),
             'tx_list' : list_tx()}
@@ -12,8 +12,7 @@ def wallet_info():
         result.update(pairs)
 
     time = int(result['expectedtime']) / 60 / 60 / 24
-    expected_time = round(time)
-    result['expected_time'] = expected_time #Time to stake in days
+    result['expected_time'] = round(time) #Time to stake in days
     result['block_time'] = rpc_call.getblock(rpc_call.getbestblockhash())['time'] # Time since last Block
 
     return result
