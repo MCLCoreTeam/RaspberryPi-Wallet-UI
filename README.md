@@ -3,18 +3,7 @@ A browser UI for cryptocurrency wallets that use the JSON-RPC protocol.
 This allows you to run a headless Pi and still have a Ui for your wallet.
 
 ## Supported Cryptocurrency Wallets  
-* NavCoin
-* Reddcoin
-* PIVX
-* Qtum
-* Decred ##
-* Neblio
-* Okcash
-* Pinkcoin
-* Peercoin
-* WhiteCoin
-* Denarius
-BitShares
+* Going to build another app for multi wallet support. 
 
 ### Install and Setup Guide
 Need to write guide.
