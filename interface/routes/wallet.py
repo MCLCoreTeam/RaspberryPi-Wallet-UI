@@ -10,7 +10,7 @@ wallet_bp = Blueprint('wallet', __name__)
 @wallet_bp.route('/')
 def index():
     wallet_info = rpcrequest.wallet_info()
-    return render_template('wallet/index.html', wallet_info=wallet_info, time=time, ui_version=current_app.config['UI_VERSION'],)
+    return render_template('wallet/index.html', wallet_info=wallet_info, time=time, ui_version=current_app.config['UI_VERSION'])
 
 @wallet_bp.route('/send', defaults={'selected_address' : ''})
 @wallet_bp.route('/send/<selected_address>', methods=['GET', 'POST'])
@@ -18,10 +18,10 @@ def send(selected_address):
 
     return render_template('wallet/send.html', wallet_info=rpcrequest.wallet_info())
 
-@wallet_bp.route('/send_coin', methods=['POST'])
-def send_coin():
-
-    return render_template('wallet/......')
+# @wallet_bp.route('/send_coin', methods=['POST'])
+# def send_coin():
+#
+#     return render_template('wallet/send.html')
 
 @wallet_bp.route('/receive', defaults={'selected_address' : ''})
 @wallet_bp.route('/receive/<selected_address>')

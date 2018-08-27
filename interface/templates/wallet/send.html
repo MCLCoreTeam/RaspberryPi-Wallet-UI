@@ -3,66 +3,7 @@ wallet_info{% extends 'base.html' %}
 <div class="main">
   <div class="send_page col-xs-12">
   <div class="send-total col-xs-12"><span class="pull-left">Send Coin</span><span class="pull-right">{{ wallet_info.balance }} Coin</span></div>
-    <form class="send-form col-xs-12 col-md-8" method="post" action="{{ url_for('send_coin') }}">
-      {{ form.csrf_token }}
-      <div id="send-wallet" class="input-group">
-        <span class="input-group-addon"><i class="glyphicon glyphicon-share-alt"></i></span>
-        {{ form.address(type="text", value=address, class_="form-control", placeholder="Send to Address")}}
-      </div>
-      <div id="send-amount" class="input-group">
-        <span class="input-group-addon"><i class="glyphicon glyphicon-qrcode"></i></span>
-        {{ form.amount(type="number", step="any", class_="form-control", placeholder="Amount to send. (Use The Checkbox to Subtract Fee From Amount )")}}
-        <span class="input-group-addon">
-          {{ form.include_fee(type="checkbox", class_="checkbox-inline")}}
-        </span>
-      </div>
-      <div id="send-description" class="input-group">
-        <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
-        {{ form.description(type="text", class_="form-control", placeholder="Enter description (optional)")}}
-      </div>
-      <div id="send-to_label" class="input-group">
-        <span class="input-group-addon"><i class="glyphicon glyphicon-floppy-save"></i></span>
-        {{ form.to_label(type="text", class_="form-control", placeholder="Enter Name and save it to the address book (optional)")}}
-      </div>
-        <div id="send-passwd" class="input-group">
-        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-        {{ form.passwd(type="password", class_="form-control", placeholder="Wallet Passphrase")}}
-      </div>
-      <div id="send-form">
-        <button type="submit" class="btn btn-primary btn-sm pull-right">Send Coins</button>
-        {% if form.errors %}
-          {% for field, errors in form.errors.items() %}
-            <div id="send-alert" class="alert alert-danger">
-              {{ form[field].label }}: {{ ', '.join(errors) }}
-            </div>
-          {% endfor %}
-        {% endif %}
 
-        {% with messages = get_flashed_messages(category_filter=["msg"]) %}
-          {% if messages %}
-            {% for message in messages %}
-            <div id="send-alert" class="alert alert-success">
-              <a href="https://explorer.org/tx/{{ message[16:] }}"  target="_blank" class="text"><span>{{ message }}</span></a>
-            </div>
-            {% endfor %}
-          {% endif %}
-        {% endwith %}
-
-        {% with messages = get_flashed_messages(category_filter=["error"]) %}
-          {% if messages %}
-            {% for message in messages %}
-            <div id="send-alert" class="alert alert-danger">
-              {{ message }}
-            </div>
-            {% endfor %}
-          {% endif %}
-        {% endwith %}
-      </div>
-    </form>
-    <div class="send-dropdown col-xs-4">
-      <button title="Previously saved sent to Names." class="btn btn-primary dropdown-toggle btn-sm" type="button" data-toggle="dropdown">Sent Address Book <span class="caret"></span></button>
-
-  </div>
   <div class="transactions-send table-responsive col-xs-12">
     <h3>Unspent Transactions</h3>
     <table id="table-unspent" class="table table-striped">
@@ -75,10 +16,10 @@ wallet_info{% extends 'base.html' %}
         </tr>
       </thead>
       <tbody>
-        {% for unspent in get_unspent %}
+        {% for unspent in wallet_info.tx_list %}
         <tr>
             <td align="center">{{ unspent.address }}</td>
-            <td align="center">{{ unspent.amount }}</td>
+            <td align="center">{{ '%0.4f'| format(unspent.amount) }}</td>
             <td align="center">{{ unspent.confirmations }}</td>
           <td align="center">
           {% if unspent.spendable %}
