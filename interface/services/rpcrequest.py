@@ -33,6 +33,10 @@ def list_tx():
     output = list(txid)
     return output
 
+def unspent_tx():
+    get_list = rpc_call.listunspent(0)
+    pass
+
 def encrypt_wallet():
     encrypt = rpc_call.encryptwallet('password')
     pass
