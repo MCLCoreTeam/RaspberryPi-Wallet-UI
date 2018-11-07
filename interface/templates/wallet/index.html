@@ -4,17 +4,17 @@
 <div class="main">
   <div class="index-page col-xs-12">
     <div class="wallet col-xs-12 col-lg-6">
-      <h3>Wallet Balance</h3>
+      <h3>Node Balance</h3>
       <br />
       <strong data-toggle="tooltip" title="Qtum availabe to spend.">Available:</strong> <span class="pull-right">{{ '%0.4f' | format(wallet_info.balance) }}</span> <br />
       <strong data-toggle="tooltip" title="Unconfirmed Qtum">Pending:</strong> <span class="pull-right">{{ '%0.4f' | format(wallet_info.unconfirmed_balance) }}</span> <br />
       <strong data-toggle="tooltip" title="Qtum with less then 500 confirmations">Immature:</strong><span class="pull-right">{{ '%0.4f' | format(wallet_info.immature_coins) }}</span> <br />
       <strong data-toggle="tooltip" title="Staking Rewards available after 500 Blocks">Stake Reward:</strong> <span class="pull-right">{{ '%0.4f' | format(wallet_info.immature_balance) }}</span> <br />
       <strong data-toggle="tooltip" title="Coins Locked from Staking a Block">Staked:</strong><span class="pull-right">{{ '%0.4f' | format(wallet_info.stake) }}</span> <br />
-      <div class="q-total"><hr /> <span data-toggle="tooltip" title="Combined total Qtum, including pending and staked" class="pull-left">Total</span> {{ '%0.4f' | format(wallet_info.balance + wallet_info.unconfirmed_balance + wallet_info.immature_balance + wallet_info.stake) }} COINS</div>
+      <div class="q-total"><hr /> <span data-toggle="tooltip" title="Combined total Qtum, including pending and staked" class="pull-left">Total</span> {{ '%0.4f' | format(wallet_info.balance + wallet_info.unconfirmed_balance + wallet_info.immature_balance + wallet_info.stake) }} TOKENS</div>
     </div>
     <div class="wallet-right col-xs-12 col-lg-6">
-      <h3>Wallet Status</h3> <br />
+      <h3>Node Status</h3> <br />
       <strong>Wallet Version:</strong> <span class="pull-right">{{ wallet_info.subversion[9:15] }}</span> <br />
       <strong>UI Version:</strong> <span class="pull-right">{{ ui_version }}</span> <br />
       {% if wallet_info.staking == false %}
